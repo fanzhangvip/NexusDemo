@@ -1,0 +1,6 @@
+nexus.exe /run
+
+nexus.exe /install nexus
+
+nexus.exe /start nexus
+nexus.exe /stop nexus

@@ -1,0 +1,20 @@
+//并保存到 USER_HOME/.gradle/文件夹下即可
+allprojects {
+    repositories {
+        def REPOSITORY_URL = 'http://192.168.0.107:8083/repository/zero-public/'
+        all { ArtifactRepository repo ->
+            if (repo instanceof MavenArtifactRepository && repo.url != null) {
+                def url = repo.url.toString()
+                if (url.startsWith('https://repo1.maven.org/maven2') || url.startsWith('https://jcenter.bintray.com/')
+				|| url.startsWith('https://jitpack.io')
+				|| url.startsWith('https://maven.google.com')) {
+                    project.logger.lifecycle "Repository ${repo.url} replaced by $REPOSITORY_URL."
+                    remove repo
+                }
+            }
+        }
+        maven {
+            url REPOSITORY_URL
+        }
+    }
+}
